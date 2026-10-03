@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#F5F2EA">
+<title>Meu Eu+</title>
+<style>
+:root{
+  --cream:#F5F2EA;
+  --cream2:#FBFAF6;
+  --sage:#A8B9A2;
+  --sage-dark:#6F876C;
+  --petrol:#214E50;
+  --petrol-soft:#DCE9E6;
+  --graphite:#263230;
+  --muted:#71807B;
+  --line:#E3E3D9;
+  --gold:#C6A15B;
+  --white:#FFFFFF;
+  --shadow:0 12px 35px rgba(33,78,80,.08);
+  --radius:24px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#EDEDE5 0%,#F5F2EA 22%);
+  color:var(--graphite);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+.app{
+  width:min(100%,430px);
+  min-height:100vh;
+  margin:auto;
+  background:var(--cream);
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 0 50px rgba(0,0,0,.08);
+}
+.top{
+  padding:28px 22px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{
+  width:42px;height:42px;border-radius:14px;
+  background:var(--petrol);
+  color:#fff;display:grid;place-items:center;
+  font-weight:800;font-size:18px;
+  box-shadow:0 7px 18px rgba(33,78,80,.18);
+}
+.brand h1{margin:0;font-size:18px;letter-spacing:-.4px}
+.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.avatar{
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--line);background:var(--white);
+  display:grid;place-items:center;color:var(--petrol);font-weight:700;
+}
+main{padding:0 18px 105px}
+.view{display:none}
+.view.active{display:block;animation:fade .22s ease}
+@keyframes fade{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+.greeting{padding:18px 4px 16px}
+.greeting .eyebrow{color:var(--sage-dark);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px}
+.greeting h2{font-size:29px;line-height:1.05;margin:7px 0 8px;letter-spacing:-1.1px}
+.greeting p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+
+.next{
+  background:var(--petrol);color:#fff;border-radius:28px;padding:22px;
+  position:relative;overflow:hidden;box-shadow:var(--shadow);
+}
+.next:after{
+  content:"";position:absolute;width:150px;height:150px;border-radius:50%;
+  right:-65px;top:-70px;background:rgba(168,185,162,.16);
+}
+.next .label{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;opacity:.7;font-weight:700}
+.next h3{font-size:21px;margin:9px 0 7px;max-width:280px}
+.next p{font-size:13px;line-height:1.5;opacity:.78;margin:0 0 18px;max-width:300px}
+.primary{
+  border:0;background:#F4EAD1;color:var(--petrol);
+  padding:12px 18px;border-radius:14px;font-weight:800;font-size:13px;
+}
+.section-title{display:flex;justify-content:space-between;align-items:end;margin:27px 3px 12px}
+.section-title h3{margin:0;font-size:17px}
+.section-title span{font-size:12px;color:var(--muted)}
+.progress-card{
+  background:var(--white);border:1px solid rgba(227,227,217,.8);
+  border-radius:22px;padding:17px;box-shadow:var(--shadow)
+}
+.progress-head{display:flex;justify-content:space-between;align-items:center}
+.progress-head strong{font-size:15px}
+.percent{color:var(--sage-dark);font-weight:800}
+.bar{height:8px;background:#E9ECE5;border-radius:99px;margin-top:12px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sage-dark),var(--petrol));border-radius:99px;transition:.35s}
+.missions{display:grid;gap:10px}
+.mission{
+  width:100%;border:1px solid var(--line);background:var(--white);
+  border-radius:19px;padding:14px;display:flex;align-items:center;gap:13px;
+  text-align:left;transition:.2s;box-shadow:0 5px 20px rgba(33,78,80,.035);
+}
+.mission:hover{transform:translateY(-1px)}
+.mission.done{background:#F0F4ED;border-color:#D6E1D2}
+.check{
+  width:30px;height:30px;min-width:30px;border-radius:50%;
+  border:1.5px solid #C8D1C7;display:grid;place-items:center;color:transparent;
+}
+.mission.done .check{background:var(--sage-dark);border-color:var(--sage-dark);color:#fff}
+.mission-icon{font-size:19px;width:24px;text-align:center}
+.mission-text{flex:1}
+.mission-text strong{display:block;font-size:13px}
+.mission-text span{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.mission.done .mission-text strong{text-decoration:line-through;opacity:.6}
+
+.quote{
+  margin-top:25px;padding:18px 18px 19px;background:var(--petrol-soft);
+  border-radius:21px;color:var(--petrol);font-size:13px;line-height:1.55;
+}
+.quote b{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;opacity:.65}
+
+.page-head{padding:20px 4px 18px}
+.page-head h2{font-size:27px;margin:0 0 6px;letter-spacing:-.9px}
+.page-head p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.metric{
+  background:var(--white);border:1px solid var(--line);border-radius:20px;padding:16px;
+}
+.metric .circle{
+  width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  background:var(--petrol-soft);font-size:18px;margin-bottom:11px;
+}
+.metric strong{font-size:21px}
+.metric span{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:23px;
+  padding:19px;margin-top:12px;
+}
+.card h3{font-size:15px;margin:0 0 14px}
+.bars{height:130px;display:flex;align-items:end;gap:8px;padding:8px 2px 0}
+.bars div{flex:1;background:var(--sage);border-radius:8px 8px 3px 3px;min-height:18px;opacity:.78}
+.bars div:nth-child(4),.bars div:nth-child(7){background:var(--petrol)}
+.days{display:flex;justify-content:space-between;color:var(--muted);font-size:9px;margin-top:7px}
+.reflection{
+  background:#F8F1DF;border-radius:20px;padding:16px;color:#68573A;font-size:13px;line-height:1.55;
+}
+.reflection textarea{
+  width:100%;margin-top:11px;border:1px solid #E3D8BB;background:rgba(255,255,255,.6);
+  border-radius:13px;padding:11px;min-height:80px;resize:none;outline:none;color:var(--graphite);
+}
+
+.nexo-card{
+  background:var(--petrol);color:#fff;border-radius:28px;padding:21px;
+  box-shadow:var(--shadow);
+}
+.nexo-top{display:flex;align-items:center;gap:11px}
+.nexo-orb{
+  width:45px;height:45px;border-radius:15px;background:var(--sage);
+  display:grid;place-items:center;color:var(--petrol);font-weight:900;
+}
+.nexo-card h3{margin:0;font-size:16px}.nexo-card small{opacity:.6}
+.nexo-msg{margin:18px 0 16px;font-size:19px;line-height:1.32}
+.quick{display:grid;gap:9px}
+.quick button{
+  text-align:left;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.07);color:#fff;border-radius:15px;padding:12px;font-size:12px;
+}
+.chat{
+  background:var(--white);border:1px solid var(--line);border-radius:23px;margin-top:12px;padding:17px;
+}
+.chat .bubble{background:#EEF3EE;border-radius:16px 16px 16px 4px;padding:13px;font-size:13px;line-height:1.5}
+.chat-input{display:flex;gap:8px;margin-top:12px}
+.chat-input input{
+  flex:1;border:1px solid var(--line);border-radius:14px;padding:11px;outline:none;background:#FCFCF9;
+}
+.chat-input button{border:0;background:var(--petrol);color:#fff;border-radius:14px;width:45px}
+
+.goal{
+  background:var(--white);border:1px solid var(--line);border-radius:23px;padding:20px;
+}
+.goal-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--sage-dark);font-weight:800}
+.goal h3{margin:8px 0;font-size:20px}
+.goal p{font-size:12px;color:var(--muted);line-height:1.5}
+.goal-progress{margin:18px 0 8px;display:flex;justify-content:space-between;font-size:11px}
+.goal-progress b{color:var(--petrol)}
+.action-row{display:flex;gap:8px;margin-top:14px}
+.secondary{
+  border:1px solid var(--line);background:var(--cream2);color:var(--petrol);
+  padding:11px 14px;border-radius:13px;font-weight:700;font-size:12px;
+}
+
+.bottom{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:min(100%,430px);height:82px;background:rgba(251,250,246,.94);
+  backdrop-filter:blur(18px);border-top:1px solid rgba(227,227,217,.9);
+  display:grid;grid-template-columns:repeat(4,1fr);padding:8px 9px 14px;z-index:10;
+}
+.nav{
+  border:0;background:transparent;color:#89938F;font-size:10px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+}
+.nav .ni{font-size:19px;line-height:1}
+.nav.active{color:var(--petrol);font-weight:800}
+.nav.active .ni{background:var(--petrol-soft);padding:5px 11px;border-radius:13px;font-size:16px}
+
+.toast{
+  position:fixed;left:50%;bottom:92px;transform:translate(-50%,20px);
+  background:var(--petrol);color:#fff;padding:12px 16px;border-radius:14px;font-size:12px;
+  opacity:0;pointer-events:none;transition:.25s;z-index:20;width:max-content;max-width:90%;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(min-width:700px){body{padding:25px 0}.app{border-radius:30px;min-height:850px}.bottom{position:absolute;border-radius:0 0 30px 30px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand">
+    <div class="logo">+</div>
+    <div><h1>Meu Eu+</h1><small>evoluir sem deixar de ser você</small></div>
+  </div>
+  <div class="avatar">L</div>
+</header>
+
+<main>
+<section id="home" class="view active">
+  <div class="greeting">
+    <div class="eyebrow">Hoje • <span id="date"></span></div>
+    <h2>Bom te ver por aqui.</h2>
+    <p>Não precisa resolver tudo hoje. Só precisa dar o próximo passo.</p>
+  </div>
+
+  <div class="next">
+    <div class="label">Seu próximo passo</div>
+    <h3 id="nextTitle">Mover o corpo por pelo menos 15 minutos.</h3>
+    <p id="nextDesc">Comece pequeno. Uma caminhada, alongamento ou treino já conta.</p>
+    <button class="primary" onclick="doNext()">Fazer agora</button>
+  </div>
+
+  <div class="section-title"><h3>Meu Eu+ hoje</h3><span id="count">0 de 6</span></div>
+  <div class="progress-card">
+    <div class="progress-head"><strong>Seu ritmo</strong><span class="percent" id="percent">0%</span></div>
+    <div class="bar"><i id="bar"></i></div>
+  </div>
+
+  <div class="section-title"><h3>Pequenas ações</h3><span>sem perfeição</span></div>
+  <div class="missions" id="missions"></div>
+
+  <div class="quote"><b>Meu Eu+ lembra</b>Consistência vale mais do que intensidade. O objetivo é construir uma vida que você consiga sustentar.</div>
+</section>
+
+<section id="evolution" class="view">
+  <div class="page-head"><h2>Sua evolução</h2><p>Olhe para o caminho, não apenas para o resultado de hoje.</p></div>
+  <div class="metrics">
+    <div class="metric"><div class="circle">🌿</div><strong id="mBody">0%</strong><span>Corpo</span></div>
+    <div class="metric"><div class="circle">☁️</div><strong id="mMind">0%</strong><span>Mente</span></div>
+    <div class="metric"><div class="circle">↗</div><strong id="mMoney">0%</strong><span>Dinheiro</span></div>
+    <div class="metric"><div class="circle">◌</div><strong id="mDisc">0%</strong><span>Disciplina</span></div>
+  </div>
+  <div class="card">
+    <h3>Ritmo dos últimos dias</h3>
+    <div class="bars" id="bars"></div>
+    <div class="days"><span>7 dias</span><span>Hoje</span></div>
+  </div>
+  <div class="card">
+    <h3>Uma pergunta para você</h3>
+    <div class="reflection">
+      <strong>O que você fez hoje que seu “eu de amanhã” vai agradecer?</strong>
+      <textarea id="reflection" placeholder="Escreva do seu jeito..."></textarea>
+      <button class="secondary" onclick="saveReflection()">Guardar reflexão</button>
+    </div>
+  </div>
+</section>
+
+<section id="nexo" class="view">
+  <div class="page-head"><h2>Converse com o Nexo</h2><p>Um espaço para organizar pensamentos e encontrar o próximo passo.</p></div>
+  <div class="nexo-card">
+    <div class="nexo-top"><div class="nexo-orb">N</div><div><h3>Nexo</h3><small>seu companheiro de direção</small></div></div>
+    <div class="nexo-msg" id="nexoMsg">O que está pesando mais na sua cabeça hoje?</div>
+    <div class="quick">
+      <button onclick="nexo('Quero organizar minha vida')">Quero organizar minha vida</button>
+      <button onclick="nexo('Preciso melhorar minha situação financeira')">Preciso melhorar minha situação financeira</button>
+      <button onclick="nexo('Estou sem motivação')">Estou sem motivação</button>
+    </div>
+  </div>
+  <div class="chat">
+    <div class="bubble" id="chatBubble">Você não precisa ter todas as respostas. Vamos encontrar uma ação possível para agora.</div>
+    <div class="chat-input"><input id="chatInput" placeholder="Fale com o Nexo..."><button onclick="sendChat()">➤</button></div>
+  </div>
+</section>
+
+<section id="goals" class="view">
+  <div class="page-head"><h2>Minhas metas</h2><p>Uma direção clara transforma intenção em ação.</p></div>
+  <div class="goal">
+    <div class="goal-label">Meta principal</div>
+    <h3 id="goalTitle">Construir uma rotina mais estável</h3>
+    <p id="goalText">Escolha uma meta que faça sentido para a fase da sua vida. O Meu Eu+ transforma isso em pequenos passos.</p>
+    <div class="goal-progress"><span>Progresso</span><b id="goalPct">0%</b></div>
+    <div class="bar"><i id="goalBar"></i></div>
+    <div class="action-row"><button class="primary" onclick="advanceGoal()">Avançar 10%</button><button class="secondary" onclick="changeGoal()">Mudar meta</button></div>
+  </div>
+  <div class="card"><h3>Como pensar nas suas metas</h3><p style="color:var(--muted);font-size:13px;line-height:1.6;margin:0">Escolha algo importante. Divida em ações pequenas. Faça o possível hoje. Revise amanhã.</p></div>
+</section>
+</main>
+
+<nav class="bottom">
+  <button class="nav active" onclick="show('home',this)"><span class="ni">⌂</span>Hoje</button>
+  <button class="nav" onclick="show('evolution',this)"><span class="ni">◔</span>Evolução</button>
+  <button class="nav" onclick="show('nexo',this)"><span class="ni">✦</span>Nexo</button>
+  <button class="nav" onclick="show('goals',this)"><span class="ni">◎</span>Metas</button>
+</nav>
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+const missions=[
+ {icon:"🌿",title:"Mover o corpo",desc:"Pelo menos 15 minutos.",pillar:"body"},
+ {icon:"☁️",title:"Cuidar da mente",desc:"5 minutos sem tela.",pillar:"mind"},
+ {icon:"↗",title:"Cuidar do dinheiro",desc:"1 ação concreta pela sua renda.",pillar:"money"},
+ {icon:"◌",title:"Praticar disciplina",desc:"Concluir algo que está adiando.",pillar:"disc"},
+ {icon:"⌂",title:"Cuidar do seu espaço",desc:"Organizar uma pequena parte.",pillar:"life"},
+ {icon:"✦",title:"Reconhecer seu progresso",desc:"Uma coisa que você fez bem.",pillar:"self"}
+];
+let state=JSON.parse(localStorage.getItem("meuEuPlus")||'{"done":[],"goal":0,"reflection":""}');
+function save(){localStorage.setItem("meuEuPlus",JSON.stringify(state))}
+function render(){
+ const box=document.getElementById("missions");box.innerHTML="";
+ missions.forEach((m,i)=>{
+  const b=document.createElement("button");b.className="mission "+(state.done.includes(i)?"done":"");
+  b.innerHTML=`<span class="check">✓</span><span class="mission-icon">${m.icon}</span><span class="mission-text"><strong>${m.title}</strong><span>${m.desc}</span></span>`;
+  b.onclick=()=>toggle(i);box.appendChild(b);
+ });
+ const n=state.done.length,p=Math.round(n/6*100);
+ document.getElementById("count").textContent=`${n} de 6`;
+ document.getElementById("percent").textContent=p+"%";document.getElementById("bar").style.width=p+"%";
+ document.getElementById("mBody").textContent=(state.done.includes(0)?100:0)+"%";
+ document.getElementById("mMind").textContent=(state.done.includes(1)?100:0)+"%";
+ document.getElementById("mMoney").textContent=(state.done.includes(2)?100:0)+"%";
+ document.getElementById("mDisc").textContent=(state.done.includes(3)?100:0)+"%";
+ document.getElementById("goalPct").textContent=state.goal+"%";document.getElementById("goalBar").style.width=state.goal+"%";
+ document.getElementById("reflection").value=state.reflection||"";
+ const next=missions.findIndex((_,i)=>!state.done.includes(i));
+ document.getElementById("nextTitle").textContent=next>=0?missions[next].title+".": "Você concluiu suas ações de hoje.";
+ document.getElementById("nextDesc").textContent=next>=0?missions[next].desc+" Comece pequeno e deixe o resto acontecer.":"Muito bem. Agora pare por um momento e perceba o que você construiu hoje.";
+}
+function toggle(i){state.done.includes(i)?state.done=state.done.filter(x=>x!==i):state.done.push(i);save();render();toast(state.done.includes(i)?"Boa. Um passo a mais.":"Tudo bem. Você pode tentar de novo quando quiser.")}
+function doNext(){const i=missions.findIndex((_,i)=>!state.done.includes(i));if(i>=0){toggle(i)}else{toast("Seu dia já está completo. 🌿")}}
+function show(id,el){document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav").forEach(n=>n.classList.remove("active"));el.classList.add("active");window.scrollTo(0,0);if(id==="evolution")drawBars()}
+function drawBars(){const b=document.getElementById("bars");b.innerHTML="";for(let i=0;i<7;i++){const d=document.createElement("div");let h=i===6?Math.max(18,state.done.length/6*100):25+Math.abs(Math.sin(i*2.2))*55;d.style.height=h+"%";b.appendChild(d)}}
+function saveReflection(){state.reflection=document.getElementById("reflection").value.trim();save();toast("Reflexão guardada.")}
+function nexo(q){let msg="Vamos transformar isso em uma coisa pequena e possível. Qual é a primeira ação que você consegue fazer hoje?";if(q.includes("financeira"))msg="Vamos sair do pensamento para a ação: qual é uma forma realista de aumentar sua renda ou reduzir um gasto hoje?";if(q.includes("motivação"))msg="Não espere a motivação chegar. Escolha uma ação de 5 minutos e comece por ela.";document.getElementById("nexoMsg").textContent=msg;document.getElementById("chatBubble").textContent=msg}
+function sendChat(){const input=document.getElementById("chatInput"),v=input.value.trim();if(!v)return;nexo(v);input.value="";toast("O Nexo recebeu sua mensagem.")}
+function advanceGoal(){state.goal=Math.min(100,state.goal+10);save();render();toast("Mais 10%. Continue no seu ritmo.")}
+function changeGoal(){const v=prompt("Qual é sua nova meta principal?");if(v){document.getElementById("goalTitle").textContent=v;toast("Nova direção definida.")}}
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>x.classList.remove("show"),1900)}
+const d=new Date();document.getElementById("date").textContent=d.toLocaleDateString("pt-BR",{day:"2-digit",month:"short"}).replace(".","");
+render();
+</script>
+</body>
+</html>
