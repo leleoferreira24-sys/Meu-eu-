@@ -1,0 +1,20 @@
+{
+  "short_name": "Meu Eu+",
+  "name": "Meu Eu+ - Evoluir sem deixar de ser você",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#f8f6f0",
+  "theme_color": "#1b4d3e",
+  "display": "standalone"
+}
