@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
+<head<link rel="manifest" href="manifest.json">
+  >
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#F5F2EA">
@@ -360,6 +361,14 @@ function changeGoal(){const v=prompt("Qual é sua nova meta principal?");if(v){d
 function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>x.classList.remove("show"),1900)}
 const d=new Date();document.getElementById("date").textContent=d.toLocaleDateString("pt-BR",{day:"2-digit",month:"short"}).replace(".","");
 render();
+  if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log('Service Worker registrado com sucesso!'))
+      .catch((err) => console.log('Falha ao registrar Service Worker:', err));
+  });
+  }
+  
 </script>
 </body>
 </html>
